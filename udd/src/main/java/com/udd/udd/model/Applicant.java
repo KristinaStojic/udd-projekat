@@ -20,14 +20,14 @@ public class Applicant {
     @Field(type = FieldType.Keyword, index = false, store = true)
     private String id;
 
-    @Field(type = FieldType.Text, analyzer = "serbian", store = true)
-    private String name;
+    @Field(type = FieldType.Text, store = true) //, analyzer = "serbian",
+    private String firstName;
 
-    @Field(type = FieldType.Text, analyzer = "serbian", store = true)
-    private String surname;
+    @Field(type = FieldType.Text, store = true) //, analyzer = "serbian"
+    private String lastName;
 
     @Field(type = FieldType.Text, store = true)
-    private Integer education;
+    private String education;
 
     @GeoPointField
     private GeoPoint location;
