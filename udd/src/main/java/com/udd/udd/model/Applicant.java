@@ -31,4 +31,10 @@ public class Applicant {
 
     @GeoPointField
     private GeoPoint location;
+
+    @Field(type = FieldType.Text, store = true)
+    private String cvContent;
+
+    @Field(type = FieldType.Text, store = true)
+    private String clContent;
 }
