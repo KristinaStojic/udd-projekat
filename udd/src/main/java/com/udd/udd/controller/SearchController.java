@@ -18,11 +18,17 @@ public class SearchController {
     @Autowired
     SearchService searchService;
 
-    @PostMapping(value = "/simple")
-    public ResponseEntity<?> simpleSearch(@RequestBody SimpleSearchDTO dto) {
-        NativeSearchQuery query = QueryBuilderService.buildQuery(dto);
+    @PostMapping(value = "/searchByApplicant")
+    public ResponseEntity<?> simpleSearchApplicant(@RequestBody SimpleSearchDTO dto) {
+        NativeSearchQuery query = QueryBuilderService.buildQueryApplicant(dto);
 
-        return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
+        return new ResponseEntity<>(searchService.simpleSearchApplicant(query), HttpStatus.OK);
+    }
 
+    @PostMapping(value = "/searchByEducation")
+    public ResponseEntity<?> simpleSearchEducation(@RequestBody SimpleSearchDTO dto) {
+        NativeSearchQuery query = QueryBuilderService.buildQueryEducation(dto);
+
+        return new ResponseEntity<>(searchService.simpleSearchEducation(query), HttpStatus.OK);
     }
 }

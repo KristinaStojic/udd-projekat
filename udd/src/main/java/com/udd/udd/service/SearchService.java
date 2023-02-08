@@ -20,7 +20,13 @@ public class SearchService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
-    public List<SearchResponseDTO> simpleSearch(NativeSearchQuery searchQuery){
+    public List<SearchResponseDTO> simpleSearchApplicant(NativeSearchQuery searchQuery){
+        System.out.println(searchQuery.getQuery());
+        SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
+        return getSearchResponse(searchHits);
+    }
+
+    public List<SearchResponseDTO> simpleSearchEducation(NativeSearchQuery searchQuery){
         System.out.println(searchQuery.getQuery());
         SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
         return getSearchResponse(searchHits);
@@ -37,6 +43,7 @@ public class SearchService {
             searchResponse.setLastName(searchHit.getContent().getLastName());
             searchResponse.setEducation(searchHit.getContent().getEducation());
             //searchResponse.setCvId(searchHit.getContent().getCvId());
+            System.out.println(searchHit);
             if (searchHit.getHighlightFields().isEmpty()) {
                 searchResponse.setHighlight(searchHit.getContent().getCvContent().substring(0, 20) + "...");
             } else {

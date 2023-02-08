@@ -18,7 +18,7 @@ public class QueryBuilderService {
     private static ElasticsearchRestTemplate elasticsearchRestTemplate;
 
 
-    public static NativeSearchQuery buildQuery(SimpleSearchDTO dto) {
+    public static NativeSearchQuery buildQueryApplicant(SimpleSearchDTO dto) {
         String errorMessage = "";
         if (dto.getContent() == null || dto.getContent().equals("")) {
             errorMessage += "Field is empty";
@@ -36,10 +36,31 @@ public class QueryBuilderService {
                         .field("firstName")
                         .field("lastName")
                         .type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
-                //.withPageable(pageable)
-                .withHighlightFields(
-                        new HighlightBuilder.Field("cvContent").fragmentSize(20).numOfFragments(1)
-                                .preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(20).numOfFragments(1).preTags("<b>").postTags("</b>"))
                 .build();
     }
+
+
+
+    public static NativeSearchQuery buildQueryEducation(SimpleSearchDTO dto) {
+        String errorMessage = "";
+        if (dto.getContent() == null || dto.getContent().equals("")) {
+            errorMessage += "Field is empty";
+        }
+        if (dto.getContent() == null) {
+            if (!errorMessage.equals("")) errorMessage += "\n";
+            errorMessage += "Value is empty";
+        }
+        if (!errorMessage.equals("")) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+
+        return new NativeSearchQueryBuilder()
+                .withQuery(multiMatchQuery(dto.getContent())
+                        .field("education")
+                )
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(40).preTags("<b>").postTags("</b>"))
+                .build();
+    }
+
 }
