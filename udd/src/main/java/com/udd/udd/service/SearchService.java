@@ -20,13 +20,19 @@ public class SearchService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
-    public List<SearchResponseDTO> simpleSearchApplicant(NativeSearchQuery searchQuery){
+    public List<SearchResponseDTO> simpleSearch(NativeSearchQuery searchQuery){
         System.out.println(searchQuery.getQuery());
         SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
         return getSearchResponse(searchHits);
     }
 
     public List<SearchResponseDTO> simpleSearchEducation(NativeSearchQuery searchQuery){
+        System.out.println(searchQuery.getQuery());
+        SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
+        return getSearchResponse(searchHits);
+    }
+
+    public List<SearchResponseDTO> simpleSearchCV(NativeSearchQuery searchQuery){
         System.out.println(searchQuery.getQuery());
         SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
         return getSearchResponse(searchHits);

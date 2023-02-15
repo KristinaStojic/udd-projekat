@@ -14,7 +14,6 @@ import java.util.Objects;
 
 @Service
 public class LocationService {
-    private static final String API_KEY = "pk.94fe45cb08a2d8d7e877645c5275b38f";
     private static final String API_URL = "https://us1.locationiq.com/v1/";
     private static final String SEARCH_URL = "search.php";
     private static final String REVERSE_URL = "reverse.php";
