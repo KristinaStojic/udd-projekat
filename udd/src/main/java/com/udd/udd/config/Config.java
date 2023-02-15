@@ -11,6 +11,7 @@ import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.udd.udd.repository")
@@ -29,5 +30,10 @@ public class Config extends AbstractElasticsearchConfiguration {
 
         return RestClients.create(clientConfiguration)
                 .rest();
+    }
+
+    @Bean
+    public RestTemplate configureRestTemplate() {
+        return new RestTemplate();
     }
 }
