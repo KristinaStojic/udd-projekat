@@ -53,7 +53,13 @@ public class SearchService {
             if (searchHit.getHighlightFields().isEmpty()) {
                 searchResponse.setHighlight(searchHit.getContent().getCvContent().substring(0, 20) + "...");
             } else {
-                searchResponse.setHighlight("..." + searchHit.getHighlightFields().get("cvContent").get(0) + "...");
+                if(searchHit.getHighlightFields().get("cvContent") != null){
+                    searchResponse.setHighlight("..." + searchHit.getHighlightFields().get("cvContent").get(0) + "...");
+                }
+                else{
+                    searchResponse.setHighlight("..." + searchHit.getHighlightFields().get("clContent").get(0) + "...");
+
+                }
             }
 
             searchResponses.add(searchResponse);

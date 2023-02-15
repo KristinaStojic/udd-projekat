@@ -84,4 +84,27 @@ public class QueryBuilderService {
                 .build();
     }
 
+
+    public static NativeSearchQuery buildQuerysearchByCoverLetter(SimpleSearchDTO dto) {
+        String errorMessage = "";
+        if (dto.getContent() == null || dto.getContent().equals("")) {
+            errorMessage += "Field is empty";
+        }
+        if (dto.getContent() == null) {
+            if (!errorMessage.equals("")) errorMessage += "\n";
+            errorMessage += "Value is empty";
+        }
+        if (!errorMessage.equals("")) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+
+        return new NativeSearchQueryBuilder()
+                .withQuery(multiMatchQuery(dto.getContent())
+                        .field("clContent")
+                )
+                .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(40).preTags("<b>").postTags("</b>"))
+                .build();
+    }
+
+
 }

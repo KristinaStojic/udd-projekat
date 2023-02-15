@@ -38,4 +38,11 @@ public class SearchController {
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/searchByCoverLetter")
+    public ResponseEntity<?> searchByCoverLetter(@RequestBody SimpleSearchDTO dto) {
+        NativeSearchQuery query = QueryBuilderService.buildQuerysearchByCoverLetter(dto);
+
+        return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
+    }
 }
