@@ -1,6 +1,9 @@
 package com.udd.udd.controller;
 
+import com.udd.udd.dto.GeoLocationDTO;
 import com.udd.udd.dto.SimpleSearchDTO;
+import com.udd.udd.model.Location;
+import com.udd.udd.service.LocationService;
 import com.udd.udd.service.QueryBuilderService;
 import com.udd.udd.service.SearchService;
 import org.apache.lucene.util.QueryBuilder;
@@ -17,6 +20,9 @@ public class SearchController {
 
     @Autowired
     SearchService searchService;
+
+    @Autowired
+    LocationService locationService;
 
     @PostMapping(value = "/searchByApplicant")
     public ResponseEntity<?> simpleSearchApplicant(@RequestBody SimpleSearchDTO dto) {
@@ -42,6 +48,14 @@ public class SearchController {
     @PostMapping(value = "/searchByCoverLetter")
     public ResponseEntity<?> searchByCoverLetter(@RequestBody SimpleSearchDTO dto) {
         NativeSearchQuery query = QueryBuilderService.buildQuerysearchByCoverLetter(dto);
+
+        return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/searchByGeoLocation")
+    public ResponseEntity<?> searchByGeoLocation(@RequestBody GeoLocationDTO dto) throws Exception {
+        Location location = locationService.getLocationFromAddress(dto.getCity());
+        NativeSearchQuery query = QueryBuilderService.buildQuerysearchByGeoLocation(dto, location);
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }
