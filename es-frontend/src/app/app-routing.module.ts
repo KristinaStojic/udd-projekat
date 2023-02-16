@@ -1,3 +1,4 @@
+import { GeoSearchComponent } from './components/geo-search/geo-search.component';
 import { SearchComponent } from './components/search/search.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,11 @@ const routes: Routes = [
     path: '',
     component: SearchComponent,
     pathMatch: 'full', 
+  },
+
+  {
+    path: 'geoSearch',
+    component: GeoSearchComponent,
   },
 
 ];

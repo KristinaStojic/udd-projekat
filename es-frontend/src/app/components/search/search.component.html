@@ -37,7 +37,6 @@
 
 
                     <div *ngIf="!this.showLevel" class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="form3Example4cdU" placeholder="Unesite tekst" class="form-control" [(ngModel)]="this.content"/>
                         </div>
@@ -49,7 +48,7 @@
                     </div>
   
                     <div *ngFor="let r of result">
-                        <div class="card" style="width: 30.5rem;" *ngIf="result[0].firstName != ''">
+                        <div class="card" style="width: 20rem;" *ngIf="result[0].firstName != ''">
                             <div class="card-body">
                               <h5 class="card-title">{{r.firstName}} {{r.lastName}}</h5>
                               <h6 class="card-subtitle mb-2 text-muted">{{r.education}}</h6>

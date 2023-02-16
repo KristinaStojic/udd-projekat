@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
+import { GeoSearchComponent } from './components/geo-search/geo-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    SearchComponent
+    SearchComponent,
+    GeoSearchComponent
   ],
   imports: [
     BrowserModule,
