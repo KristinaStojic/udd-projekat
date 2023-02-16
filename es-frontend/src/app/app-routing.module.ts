@@ -6,14 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 
   {
-    path: '',
-    component: RegisterComponent,
-    pathMatch: 'full', 
+    path: 'register',
+    component: RegisterComponent
   },
 
   {
-    path: 'search',
+    path: '',
     component: SearchComponent,
+    pathMatch: 'full', 
   },
 
 ];

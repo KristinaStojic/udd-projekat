@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,29 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'es-frontend';
+
+  constructor(private router: Router){}
+
+  basicSearch(){
+    this.router.navigate(['']);
+  }
+
+
+  advancedSearch(){
+    this.router.navigate(['/advanced']);
+  }
+
+  geoSearch(){
+    this.router.navigate(['/geoSearch']);
+
+  }
+
+  statistic(){
+    this.router.navigate(['/statistic']);
+  }
+
+
+  register(){
+    this.router.navigate(['/register']);
+  }
 }

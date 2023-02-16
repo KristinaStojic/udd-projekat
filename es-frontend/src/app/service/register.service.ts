@@ -9,8 +9,7 @@ export class RegisterService {
 
   private register_url = 'http://localhost:8080/applicant/register';
 
-  constructor(private router: Router,
-    private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   register(user) {
     let queryParams = {};

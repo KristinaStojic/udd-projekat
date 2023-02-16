@@ -14,6 +14,7 @@ import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchPhraseQuery;
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 public class QueryBuilderService {
@@ -42,7 +43,7 @@ public class QueryBuilderService {
                         .field("firstName")
                         .field("lastName")
                         .type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(20).numOfFragments(1).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -65,7 +66,7 @@ public class QueryBuilderService {
                 .withQuery(multiMatchQuery(dto.getContent())
                         .field("education")
                 )
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(40).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -86,7 +87,7 @@ public class QueryBuilderService {
                 .withQuery(multiMatchQuery(dto.getContent())
                         .field("cvContent")
                 )
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(40).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -105,10 +106,10 @@ public class QueryBuilderService {
         }
 
         return new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(dto.getContent())
-                        .field("clContent")
+                .withQuery(matchPhraseQuery("clContent", dto.getContent())
+                        //.field("clContent")
                 )
-                .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(40).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -135,7 +136,7 @@ public class QueryBuilderService {
 
         return new NativeSearchQueryBuilder()
                 .withFilter(geoDistanceBuilder)
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(40).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
                 .build();
     }
 

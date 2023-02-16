@@ -51,7 +51,7 @@ public class SearchService {
             //searchResponse.setCvId(searchHit.getContent().getCvId());
             System.out.println(searchHit);
             if (searchHit.getHighlightFields().isEmpty()) {
-                searchResponse.setHighlight(searchHit.getContent().getCvContent().substring(0, 20) + "...");
+                searchResponse.setHighlight(searchHit.getContent().getCvContent().substring(0, 200) + "...");
             } else {
                 if(searchHit.getHighlightFields().get("cvContent") != null){
                     searchResponse.setHighlight("..." + searchHit.getHighlightFields().get("cvContent").get(0) + "...");

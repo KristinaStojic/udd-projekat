@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/search")
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SearchController {
 
     @Autowired
@@ -24,35 +24,35 @@ public class SearchController {
     @Autowired
     LocationService locationService;
 
-    @PostMapping(value = "/searchByApplicant")
+    @PostMapping(value = "/byApplicant")
     public ResponseEntity<?> simpleSearchApplicant(@RequestBody SimpleSearchDTO dto) {
         NativeSearchQuery query = QueryBuilderService.buildQueryApplicant(dto);
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/searchByEducation")
+    @PostMapping(value = "/byEducation")
     public ResponseEntity<?> simpleSearchEducation(@RequestBody SimpleSearchDTO dto) {
         NativeSearchQuery query = QueryBuilderService.buildQueryEducation(dto);
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/searchByCV")
+    @PostMapping(value = "/byCV")
     public ResponseEntity<?> searchByCV(@RequestBody SimpleSearchDTO dto) {
         NativeSearchQuery query = QueryBuilderService.buildQueryCV(dto);
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/searchByCoverLetter")
+    @PostMapping(value = "/byCL")
     public ResponseEntity<?> searchByCoverLetter(@RequestBody SimpleSearchDTO dto) {
         NativeSearchQuery query = QueryBuilderService.buildQuerysearchByCoverLetter(dto);
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/searchByGeoLocation")
+    @PostMapping(value = "/byGeoLocation")
     public ResponseEntity<?> searchByGeoLocation(@RequestBody GeoLocationDTO dto) throws Exception {
         Location location = locationService.getLocationFromAddress(dto.getCity());
         NativeSearchQuery query = QueryBuilderService.buildQuerysearchByGeoLocation(dto, location);
