@@ -16,7 +16,6 @@
                             <option value="2">Stepen stručne spreme</option>
                             <option value="3">Sadržaj cv-a</option>
                             <option value="4">Sadržaj propratnog pisma</option>
-
                         </select>
                     </div>
 
@@ -48,7 +47,7 @@
                     </div>
   
                     <div *ngFor="let r of result">
-                        <div class="card" style="width: 20rem;" *ngIf="result[0].firstName != ''">
+                        <div class="card" *ngIf="result[0].firstName != ''">
                             <div class="card-body">
                               <h5 class="card-title">{{r.firstName}} {{r.lastName}}</h5>
                               <h6 class="card-subtitle mb-2 text-muted">{{r.education}}</h6>

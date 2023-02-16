@@ -39,11 +39,11 @@ public class QueryBuilderService {
         }
 
         return new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(dto.getContent())
-                        .field("firstName")
-                        .field("lastName")
-                        .type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
+                .withQuery(matchPhraseQuery("firstName", dto.getContent()))
+                        //.field("firstName")
+                        //.field("lastName")
+                        //.type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -66,7 +66,7 @@ public class QueryBuilderService {
                 .withQuery(multiMatchQuery(dto.getContent())
                         .field("education")
                 )
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -84,10 +84,10 @@ public class QueryBuilderService {
         }
 
         return new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(dto.getContent())
-                        .field("cvContent")
+                .withQuery(matchPhraseQuery("cvContent",dto.getContent())
+                        //.field("cvContent")
                 )
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -109,7 +109,7 @@ public class QueryBuilderService {
                 .withQuery(matchPhraseQuery("clContent", dto.getContent())
                         //.field("clContent")
                 )
-                .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -136,7 +136,7 @@ public class QueryBuilderService {
 
         return new NativeSearchQueryBuilder()
                 .withFilter(geoDistanceBuilder)
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(200).preTags("<b>").postTags("</b>"))
+                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
                 .build();
     }
 

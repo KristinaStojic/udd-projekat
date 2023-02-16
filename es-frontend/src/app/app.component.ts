@@ -17,7 +17,7 @@ export class AppComponent {
 
 
   advancedSearch(){
-    this.router.navigate(['/advanced']);
+    this.router.navigate(['/advancedSearch']);
   }
 
   geoSearch(){

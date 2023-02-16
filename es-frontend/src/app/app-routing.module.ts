@@ -1,3 +1,4 @@
+import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 import { GeoSearchComponent } from './components/geo-search/geo-search.component';
 import { SearchComponent } from './components/search/search.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'geoSearch',
     component: GeoSearchComponent,
+  },
+
+  {
+    path: 'advancedSearch',
+    component: AdvancedSearchComponent,
   },
 
 ];

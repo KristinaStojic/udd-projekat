@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { GeoSearchComponent } from './components/geo-search/geo-search.component';
+import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     SearchComponent,
-    GeoSearchComponent
+    GeoSearchComponent,
+    AdvancedSearchComponent
   ],
   imports: [
     BrowserModule,
