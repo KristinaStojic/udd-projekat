@@ -21,8 +21,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 
 import java.util.List;
 
-import static org.elasticsearch.index.query.QueryBuilders.matchPhraseQuery;
-import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 public class QueryBuilderService {
 
@@ -31,6 +30,7 @@ public class QueryBuilderService {
 
     @Autowired
     private static LocationService locationService;
+
 
     public static NativeSearchQuery buildQueryApplicant(SimpleSearchDTO dto) {
         String errorMessage = "";
@@ -46,11 +46,39 @@ public class QueryBuilderService {
         }
 
         return new NativeSearchQueryBuilder()
-                .withQuery(matchPhraseQuery("firstName", dto.getContent()))
-                        //.field("firstName")
-                        //.field("lastName")
-                        //.type(MultiMatchQueryBuilder.Type.BEST_FIELDS))
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
+                .withQuery(multiMatchQuery(dto.getContent())
+                                .field("firstName")
+                                .field("lastName")
+                )
+                .withHighlightFields(
+                        new HighlightBuilder.Field("cvContent").fragmentSize(20).numOfFragments(1)
+                                .preTags("<b>").postTags("</b>"))
+                .build();
+    }
+
+    public static NativeSearchQuery buildQueryApplicantPhrase(SimpleSearchDTO dto) {
+        String errorMessage = "";
+        if (dto.getContent() == null || dto.getContent().equals("")) {
+            errorMessage += "Field is empty";
+        }
+        if (dto.getContent() == null) {
+            if (!errorMessage.equals("")) errorMessage += "\n";
+            errorMessage += "Value is empty";
+        }
+        if (!errorMessage.equals("")) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+
+        return new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.boolQuery()
+                        .should(new MultiMatchQueryBuilder(dto.getContent())
+                                .field("firstName")
+                                .field("lastName")
+                                .type(MultiMatchQueryBuilder.Type.PHRASE))
+                )
+                .withHighlightFields(
+                        new HighlightBuilder.Field("cvContent").fragmentSize(20).numOfFragments(1)
+                                .preTags("<b>").postTags("</b>"))
                 .build();
     }
 
@@ -69,12 +97,20 @@ public class QueryBuilderService {
             throw new IllegalArgumentException(errorMessage);
         }
 
-        return new NativeSearchQueryBuilder()
-                .withQuery(multiMatchQuery(dto.getContent())
-                        .field("education")
-                )
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
-                .build();
+        if(dto.getPhrase()){
+            return new NativeSearchQueryBuilder()
+                    .withQuery(matchPhraseQuery("education", dto.getContent())
+                    )
+                    .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
+                    .build();
+        }else{
+            return new NativeSearchQueryBuilder()
+                    .withQuery(multiMatchQuery(dto.getContent())
+                            .field("education")
+                    )
+                    .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
+                    .build();
+        }
     }
 
     public static NativeSearchQuery buildQueryCV(SimpleSearchDTO dto) {
@@ -90,12 +126,20 @@ public class QueryBuilderService {
             throw new IllegalArgumentException(errorMessage);
         }
 
-        return new NativeSearchQueryBuilder()
-                .withQuery(matchPhraseQuery("cvContent",dto.getContent())
-                        //.field("cvContent")
-                )
-                .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
-                .build();
+        if(dto.getPhrase()){
+            return new NativeSearchQueryBuilder()
+                    .withQuery(matchPhraseQuery("cvContent", dto.getContent())
+                    )
+                    .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
+                    .build();
+        }else{
+            return new NativeSearchQueryBuilder()
+                    .withQuery(multiMatchQuery(dto.getContent())
+                            .field("cvContent")
+                    )
+                    .withHighlightFields(new HighlightBuilder.Field("cvContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
+                    .build();
+        }
     }
 
 
@@ -112,12 +156,20 @@ public class QueryBuilderService {
             throw new IllegalArgumentException(errorMessage);
         }
 
-        return new NativeSearchQueryBuilder()
-                .withQuery(matchPhraseQuery("clContent", dto.getContent())
-                        //.field("clContent")
-                )
-                .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
-                .build();
+        if(dto.getPhrase()){
+            return new NativeSearchQueryBuilder()
+                    .withQuery(matchPhraseQuery("clContent", dto.getContent())
+                    )
+                    .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
+                    .build();
+        }else{
+            return new NativeSearchQueryBuilder()
+                    .withQuery(multiMatchQuery(dto.getContent())
+                            .field("clContent")
+                    )
+                    .withHighlightFields(new HighlightBuilder.Field("clContent").fragmentSize(250).preTags("<b>").postTags("</b>"))
+                    .build();
+        }
     }
 
 
@@ -168,7 +220,6 @@ public class QueryBuilderService {
             }
         }
 
-        System.out.println(boolQuery);
         HighlightBuilder highlightBuilder = new HighlightBuilder()
                 .highlighterType("plain")
                 .field("cvContent")
@@ -179,6 +230,7 @@ public class QueryBuilderService {
                 .withQuery(boolQuery)
                 .withHighlightBuilder(highlightBuilder)
                 .build();
+        System.out.println(searchQuery);
 
         return searchQuery;
     }

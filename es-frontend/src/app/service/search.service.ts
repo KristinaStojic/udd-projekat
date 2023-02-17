@@ -13,6 +13,14 @@ export class SearchService {
     return this.http.post(`${this.search_url}/byApplicant`, content);
   }
 
+  simpleSearchName(content){
+    return this.http.post(`${this.search_url}/byName`, content);
+  }
+
+  simpleSearchLastName(content){
+    return this.http.post(`${this.search_url}/byLastName`, content);
+  }
+
   educationSearch(content){
     return this.http.post(`${this.search_url}/byEducation`, content);
 

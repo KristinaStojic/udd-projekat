@@ -1,5 +1,6 @@
 import { SearchService } from './../../service/search.service';
 import { Component, OnInit } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-search',
@@ -9,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class SearchComponent implements OnInit {
 
   content = ""
+  phrase = false
   criteria = 0
   result = [
     {
@@ -39,10 +41,20 @@ export class SearchComponent implements OnInit {
     this.content = $event.target.value
   }
 
+  selectPhrase(){
+    if(this.phrase){
+      this.phrase = true
+    }
+    else{
+      this.phrase = false;
+    }
+  }
+
   submit(){
 
     var content = {
-      "content": this.content
+      "content": this.content,
+      "phrase": this.phrase
     }
     console.log(content)
 

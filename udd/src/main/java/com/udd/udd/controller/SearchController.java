@@ -30,7 +30,13 @@ public class SearchController {
 
     @PostMapping(value = "/byApplicant")
     public ResponseEntity<?> simpleSearchApplicant(@RequestBody SimpleSearchDTO dto) {
-        NativeSearchQuery query = QueryBuilderService.buildQueryApplicant(dto);
+        NativeSearchQuery query;
+
+        if(dto.getPhrase()){
+            query = QueryBuilderService.buildQueryApplicantPhrase(dto);
+        }else{
+            query = QueryBuilderService.buildQueryApplicant(dto);
+        }
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }

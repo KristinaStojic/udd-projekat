@@ -12,4 +12,5 @@ import lombok.Setter;
 public class SimpleSearchDTO {
 
     private String content;
+    private Boolean phrase;
 }
