@@ -19,7 +19,8 @@
                               </select>
                               <select class="custom-select" id="inputGroupSelect01" style="margin-left: 20px; width: 200px;" (change)="criteria($event, i)">
                                 <option selected value="0">Kriterijum pretrage</option>
-                                <option value="name">Ime i prezime</option>
+                                <option value="firstName">Ime</option>
+                                <option value="lastName">Prezime</option>
                                 <option value="education">Stepen stručne spreme</option>
                                 <option value="cv">Sadržaj cv-a</option>
                                 <option value="cl">Sadržaj propratnog pisma</option>
@@ -49,8 +50,21 @@
                     <button type="button" style="margin-left: 567px;" class="btn btn-primary btn-sm" (click)="addField()">+</button>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="button" class="btn btn-primary btn-lg" (click)="submit()">Potvrdi</button>
+                        <button [disabled]="this.fieldCount < 2" type="button" class="btn btn-primary btn-lg" (click)="submit()">Potvrdi</button>
                     </div>
+
+
+                    <div *ngFor="let r of result">
+                      <div class="card" *ngIf="result[0].firstName != ''">
+                          <div class="card-body">
+                            <h5 class="card-title">{{r.firstName}} {{r.lastName}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{r.education}}</h6>
+                            <p class="card-text">{{r.highlight}}</p>
+                            <!-- <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a> -->
+                          </div>
+                        </div>
+                  </div>
                 </div>
               </div>
             </div>

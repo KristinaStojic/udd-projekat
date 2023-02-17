@@ -18,7 +18,15 @@ export class RegisterComponent implements OnInit {
 
   cv: any
   coverLetter: any
-
+  result = [
+    {
+      "firstName": "",
+      "lastName": "",
+      "education": "",
+      "highlight": ""
+    }
+  ]
+  
   constructor(private registerService: RegisterService) { }
 
   ngOnInit(): void {
@@ -37,7 +45,8 @@ export class RegisterComponent implements OnInit {
 
     this.registerService.register(formData).subscribe(
       (data: any) => {
-        console.log(data)
+        this.result = data
+        console.log(this.result)
       }
     )
   }

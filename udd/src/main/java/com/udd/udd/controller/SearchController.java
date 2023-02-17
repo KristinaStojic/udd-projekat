@@ -1,5 +1,7 @@
 package com.udd.udd.controller;
 
+import com.udd.udd.dto.AdvancedSearchDTO;
+import com.udd.udd.dto.AdvancedSearchRequestDTO;
 import com.udd.udd.dto.GeoLocationDTO;
 import com.udd.udd.dto.SimpleSearchDTO;
 import com.udd.udd.model.Location;
@@ -12,6 +14,8 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/search")
@@ -56,6 +60,13 @@ public class SearchController {
     public ResponseEntity<?> searchByGeoLocation(@RequestBody GeoLocationDTO dto) throws Exception {
         Location location = locationService.getLocationFromAddress(dto.getCity());
         NativeSearchQuery query = QueryBuilderService.buildQuerysearchByGeoLocation(dto, location);
+
+        return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/advanced")
+    public ResponseEntity<?> advancedSearch(@RequestBody List<AdvancedSearchRequestDTO> dto) throws Exception {
+        NativeSearchQuery query = QueryBuilderService.buildQuerysearchAdvanced(dto);
 
         return new ResponseEntity<>(searchService.simpleSearch(query), HttpStatus.OK);
     }

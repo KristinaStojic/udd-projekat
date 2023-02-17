@@ -1,3 +1,5 @@
+import { SearchService } from './../../service/search.service';
+import { SearchComponent } from './../search/search.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,35 +9,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancedSearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
   }
 
   education = false
-
+  fieldCount = 0
+  
   fields = [
     { 
       criteria: '',
       content: '',
       op : 'AND',
     }];
+    result = [
+      {
+        "firstName": "",
+        "lastName": "",
+        "education": "",
+        "highlight": ""
+      }
+    ]
 
   addField() {
-    const fieldCount = this.fields.length + 1;
+
+    this.fieldCount = this.fields.length + 1;
     const newField = { criteria: '', content: '', op: 'AND' };
     this.fields.push(newField);
+
     this.submit()
 
   }
 
   removeField(index: number) {
+    this.fieldCount = this.fields.length - 1;
     this.fields.splice(index, 1);
     this.submit()
   }
 
   operator($event, index){
     this.fields[index].op = $event.target.value
+    this.fields[0].op = this.fields[1].op
+
     console.log(this.fields[index])
   }
 
@@ -57,7 +73,15 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.fields);
+    console.log(JSON.stringify(this.fields));
+    this.fields[0].op = this.fields[1].op
+
+    this.searchService.advancedSearch(JSON.stringify(this.fields)).subscribe(
+      (data: any) => {
+        this.result = data
+        console.log(data)
+      }
+    )
   }
 
 }
