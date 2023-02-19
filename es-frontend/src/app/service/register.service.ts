@@ -10,6 +10,7 @@ export class RegisterService {
   private register_url = 'http://localhost:8080/applicant/register';
   private download_url = 'http://localhost:8080/applicant/download';
   private getAll_url = 'http://localhost:8080/applicant/getAll';
+  private hire_url = 'http://localhost:8080/applicant/hire';
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +34,13 @@ export class RegisterService {
 
   getAll(){
     return this.http.get(this.getAll_url);
+  }
+
+  hire(dto){
+    let json = JSON.stringify(dto)
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let options = { headers: headers, responseType: 'text' as 'json' };
+    return this.http.post(this.hire_url, json, options);
   }
   
 }

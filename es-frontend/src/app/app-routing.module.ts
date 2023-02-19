@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/login/login.component';
 import { WorkersComponent } from './components/workers/workers.component';
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 import { GeoSearchComponent } from './components/geo-search/geo-search.component';
@@ -14,9 +15,8 @@ const routes: Routes = [
   },
 
   {
-    path: '',
+    path: 'search',
     component: SearchComponent,
-    pathMatch: 'full', 
   },
 
   {
@@ -32,6 +32,13 @@ const routes: Routes = [
   {
     path: 'workers',
     component: WorkersComponent,
+  },
+
+  {
+    path: '',
+    component: LoginComponent,
+    pathMatch: 'full', 
+
   },
 
 ];

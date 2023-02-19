@@ -17,13 +17,13 @@
                         </div>
 
                         <div class="d-flex flex-row align-items-center mb-4">
-                            <select class="custom-select" id="inputGroupSelect01" >
+                            <select class="custom-select" id="inputGroupSelect01" (change)="selectCompany($event)">
                                 <option selected value="1">Microsoft</option>
                                 <option value="2">Google</option>
                                 <option value="3">Amazon</option>
                             </select>
 
-                            <button class="btn btn-primary">Zaposli</button>
+                            <button class="btn btn-primary" (click)="hire(r.id)">Zaposli</button>
                         </div>
                     </div>
   

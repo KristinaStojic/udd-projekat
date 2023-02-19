@@ -19,6 +19,8 @@ export class WorkersComponent implements OnInit {
     }
   ]
 
+  company = 1
+
   ngOnInit(): void {
     this.registerService.getAll().subscribe(
       (data: any) => {
@@ -26,5 +28,29 @@ export class WorkersComponent implements OnInit {
       }
     )
   }
+
+  selectCompany($event){
+    this.company = $event.target.value
+  }
+
+
+  hire(id){
+    let employee = localStorage.getItem('id')
+
+    var dto = {
+      "applicantId": id,
+      "companyId": this.company,
+      "employeeId": employee
+    }
+
+    this.registerService.hire(dto).subscribe(
+      (data: any) => {
+        alert("Uspjesno zaposlen radnik!!")
+      }
+    )
+
+  }
+
+  
 
 }

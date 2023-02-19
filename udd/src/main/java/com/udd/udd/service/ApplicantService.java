@@ -1,17 +1,21 @@
 package com.udd.udd.service;
 
+import com.udd.udd.controller.ApplicantController;
 import com.udd.udd.dto.ApplicantDTO;
+import com.udd.udd.dto.HireDTO;
 import com.udd.udd.dto.RegisterDTO;
-import com.udd.udd.model.Applicant;
-import com.udd.udd.model.IndexUnit;
-import com.udd.udd.model.Location;
+import com.udd.udd.model.*;
 import com.udd.udd.repository.ApplicationRepository;
+import com.udd.udd.repository.CompanyRepository;
+import com.udd.udd.repository.EmployeeRepository;
 import com.udd.udd.repository.IndexUnitRepository;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.RandomAccessFile;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
@@ -44,9 +48,18 @@ public class ApplicantService {
     @Autowired
     private HttpServletResponse response;
 
+    @Autowired
+    private CompanyRepository companyRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     private final Path root = Paths.get("uploads");
 
     private static int applicantNum = 1;
+
+    private static final Logger logger = LoggerFactory.getLogger(ApplicantService.class);
+
 
     public void save(IndexUnit applicant){
         indexUnitRepository.save(applicant);
@@ -177,5 +190,34 @@ public class ApplicantService {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    public Boolean hire(HireDTO dto){
+        Applicant a = applicationRepository.findById(Long.valueOf(dto.getApplicantId())).orElseGet(null);
+
+        if(a == null){
+            return false;
+        }
+
+        Company c = companyRepository.findById(Long.valueOf(dto.getCompanyId())).orElseGet(null);
+
+        if(c == null){
+            return false;
+        }
+
+        Employee e = employeeRepository.findById(Long.valueOf(dto.getEmployeeId())).orElseGet(null);
+
+        if(e == null){
+            return false;
+        }
+
+        a.setCompany(c);
+        applicationRepository.save(a);
+
+        logger.info("New employment in the company: {}", c.getName());
+        logger.info("New successful employment by employee: {}", e.getName());
+
+        return true;
     }
 }

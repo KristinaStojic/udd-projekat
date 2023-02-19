@@ -2,6 +2,7 @@ package com.udd.udd.controller;
 
 import com.udd.udd.dto.ApplicantDTO;
 import com.udd.udd.dto.DownloadFileDTO;
+import com.udd.udd.dto.HireDTO;
 import com.udd.udd.dto.RegisterDTO;
 import com.udd.udd.model.Applicant;
 import com.udd.udd.model.IndexUnit;
@@ -85,6 +86,16 @@ public class ApplicantController {
         }
 
         return new ResponseEntity<>("Failed downloading!!", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/hire")
+    @ResponseBody public ResponseEntity<?> hire(@RequestBody HireDTO dto) {
+        Boolean hirerd = applicantService.hire(dto);
+        if(hirerd) {
+            return new ResponseEntity<>("Success hiring!", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Failed hiring!!", HttpStatus.BAD_REQUEST);
     }
 
 

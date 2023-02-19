@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(private router: Router){}
 
   basicSearch(){
-    this.router.navigate(['']);
+    this.router.navigate(['/search']);
   }
 
 
@@ -36,5 +36,9 @@ export class AppComponent {
 
   workers(){
     this.router.navigate(['/workers'])
+  }
+
+  login(){
+    this.router.navigate(['']);
   }
 }
