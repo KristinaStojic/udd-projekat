@@ -1,3 +1,4 @@
+import { RegisterService } from './../../service/register.service';
 import { SearchService } from './../../service/search.service';
 import { Component, OnInit } from '@angular/core';
 import { ThisReceiver } from '@angular/compiler';
@@ -17,12 +18,13 @@ export class SearchComponent implements OnInit {
       "firstName": "",
       "lastName": "",
       "education": "",
-      "highlight": ""
+      "highlight": "",
+      "id": ""
     }
   ]
   showLevel = false
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService, private registerService: RegisterService) { }
 
   ngOnInit(): void {
   }
@@ -48,6 +50,33 @@ export class SearchComponent implements OnInit {
     else{
       this.phrase = false;
     }
+  }
+
+  downloadCV(i){
+    let dto = {
+      "id": i,
+      "isCV": true
+    }
+
+    this.registerService.download(dto).subscribe(
+      (data: any) => {
+        console.log(this.result)
+      }
+    )
+  }
+
+  downloadCL(i){
+    let dto = {
+      "id": i,
+      "isCV": false
+    }
+
+    this.registerService.download(dto).subscribe(
+      (data: any) => {
+        console.log(this.result)
+        alert("Uspesno preuzet fajl!!")
+      }
+    )
   }
 
   submit(){

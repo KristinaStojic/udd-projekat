@@ -1,8 +1,7 @@
 package com.udd.udd.service;
 
 import com.udd.udd.dto.SearchResponseDTO;
-import com.udd.udd.model.Applicant;
-import org.elasticsearch.action.search.SearchResponse;
+import com.udd.udd.model.IndexUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -22,34 +21,34 @@ public class SearchService {
 
     public List<SearchResponseDTO> simpleSearch(NativeSearchQuery searchQuery){
         System.out.println(searchQuery.getQuery());
-        SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
+        SearchHits<IndexUnit> searchHits = elasticsearchRestTemplate.search(searchQuery, IndexUnit.class, IndexCoordinates.of("applicant"));
         return getSearchResponse(searchHits);
     }
 
     public List<SearchResponseDTO> simpleSearchEducation(NativeSearchQuery searchQuery){
         System.out.println(searchQuery.getQuery());
-        SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
+        SearchHits<IndexUnit> searchHits = elasticsearchRestTemplate.search(searchQuery, IndexUnit.class, IndexCoordinates.of("applicant"));
         return getSearchResponse(searchHits);
     }
 
     public List<SearchResponseDTO> simpleSearchCV(NativeSearchQuery searchQuery){
         System.out.println(searchQuery.getQuery());
-        SearchHits<Applicant> searchHits = elasticsearchRestTemplate.search(searchQuery, Applicant.class, IndexCoordinates.of("applicant"));
+        SearchHits<IndexUnit> searchHits = elasticsearchRestTemplate.search(searchQuery, IndexUnit.class, IndexCoordinates.of("applicant"));
         return getSearchResponse(searchHits);
     }
 
 
-    private List<SearchResponseDTO> getSearchResponse(SearchHits<Applicant> searchHits) {
+    private List<SearchResponseDTO> getSearchResponse(SearchHits<IndexUnit> searchHits) {
         List<SearchResponseDTO> searchResponses = new ArrayList<>();
 
-        for(SearchHit<Applicant> searchHit : searchHits) {
+        for(SearchHit<IndexUnit> searchHit : searchHits) {
             SearchResponseDTO searchResponse = new SearchResponseDTO();
 
+            searchResponse.setId(searchHit.getId());
             searchResponse.setFirstName(searchHit.getContent().getFirstName());
             searchResponse.setLastName(searchHit.getContent().getLastName());
             searchResponse.setEducation(searchHit.getContent().getEducation());
-            //searchResponse.setCvId(searchHit.getContent().getCvId());
-            System.out.println(searchHit);
+
             if (searchHit.getHighlightFields().isEmpty()) {
                 searchResponse.setHighlight(searchHit.getContent().getCvContent().substring(0, 200) + "...");
             } else {

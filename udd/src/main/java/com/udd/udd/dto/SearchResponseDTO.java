@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SearchResponseDTO {
 
+    private String id;
     private String firstName;
     private String lastName;
     private String education;

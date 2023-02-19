@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class RegisterService {
 
   private register_url = 'http://localhost:8080/applicant/register';
+  private download_url = 'http://localhost:8080/applicant/download';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +21,13 @@ export class RegisterService {
         };
 
     return this.http.post(this.register_url, user, queryParams);
+  }
+
+  download(dto){
+    let json = JSON.stringify(dto)
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let options = { headers: headers, responseType: 'text' as 'json' };
+    return this.http.post(this.download_url, json, options);
   }
   
 }

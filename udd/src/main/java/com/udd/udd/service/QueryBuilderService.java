@@ -1,9 +1,7 @@
 package com.udd.udd.service;
-import com.udd.udd.dto.AdvancedSearchDTO;
 import com.udd.udd.dto.AdvancedSearchRequestDTO;
 import com.udd.udd.dto.GeoLocationDTO;
 import com.udd.udd.dto.SimpleSearchDTO;
-import com.udd.udd.model.Applicant;
 import com.udd.udd.model.Location;
 import com.udd.udd.model.Operator;
 import org.elasticsearch.common.unit.DistanceUnit;
@@ -14,8 +12,6 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
@@ -51,7 +47,7 @@ public class QueryBuilderService {
                                 .field("lastName")
                 )
                 .withHighlightFields(
-                        new HighlightBuilder.Field("cvContent").fragmentSize(20).numOfFragments(1)
+                        new HighlightBuilder.Field("cvContent").fragmentSize(250).numOfFragments(1)
                                 .preTags("<b>").postTags("</b>"))
                 .build();
     }
@@ -77,7 +73,7 @@ public class QueryBuilderService {
                                 .type(MultiMatchQueryBuilder.Type.PHRASE))
                 )
                 .withHighlightFields(
-                        new HighlightBuilder.Field("cvContent").fragmentSize(20).numOfFragments(1)
+                        new HighlightBuilder.Field("cvContent").fragmentSize(250).numOfFragments(1)
                                 .preTags("<b>").postTags("</b>"))
                 .build();
     }
