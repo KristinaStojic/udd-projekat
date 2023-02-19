@@ -33,4 +33,8 @@ export class AppComponent {
   register(){
     this.router.navigate(['/register']);
   }
+
+  workers(){
+    this.router.navigate(['/workers'])
+  }
 }

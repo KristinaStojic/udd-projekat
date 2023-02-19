@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { GeoSearchComponent } from './components/geo-search/geo-search.component';
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
+import { WorkersComponent } from './components/workers/workers.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AdvancedSearchComponent } from './components/advanced-search/advanced-s
     RegisterComponent,
     SearchComponent,
     GeoSearchComponent,
-    AdvancedSearchComponent
+    AdvancedSearchComponent,
+    WorkersComponent
   ],
   imports: [
     BrowserModule,

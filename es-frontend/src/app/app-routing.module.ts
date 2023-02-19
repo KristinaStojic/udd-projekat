@@ -1,3 +1,4 @@
+import { WorkersComponent } from './components/workers/workers.component';
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 import { GeoSearchComponent } from './components/geo-search/geo-search.component';
 import { SearchComponent } from './components/search/search.component';
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'advancedSearch',
     component: AdvancedSearchComponent,
+  },
+
+  {
+    path: 'workers',
+    component: WorkersComponent,
   },
 
 ];

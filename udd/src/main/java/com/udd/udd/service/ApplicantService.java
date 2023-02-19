@@ -1,5 +1,6 @@
 package com.udd.udd.service;
 
+import com.udd.udd.dto.ApplicantDTO;
 import com.udd.udd.dto.RegisterDTO;
 import com.udd.udd.model.Applicant;
 import com.udd.udd.model.IndexUnit;
@@ -25,6 +26,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ApplicantService {
@@ -51,6 +54,20 @@ public class ApplicantService {
 
     public IndexUnit findById(String id){
         return (IndexUnit) indexUnitRepository.findById(id).orElse(null);
+    }
+
+    public List<ApplicantDTO> getAll(){
+        List<ApplicantDTO> ret = new ArrayList<>();
+
+        for(Applicant a: applicationRepository.findAll()){
+            ApplicantDTO dto = new ApplicantDTO();
+            dto.setName(a.getFirstName() + " " + a.getLastName());
+            dto.setEducation(a.getEducation());
+            dto.setAddress(a.getStreet() + ", " + a.getCity());
+            dto.setId(a.getId().toString());
+            ret.add(dto);
+        }
+        return ret;
     }
 
     public IndexUnit register(RegisterDTO dto) throws Exception {
