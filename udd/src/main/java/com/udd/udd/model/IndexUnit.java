@@ -23,7 +23,7 @@ public class IndexUnit {
     @Field(type = FieldType.Text, store = true) //, analyzer = "serbian",
     private String firstName;
 
-    @Field(type = FieldType.Text, store = true) //, analyzer = "serbian"
+    @Field(type = FieldType.Text) //, analyzer = "serbian"
     private String lastName;
 
     @Field(type = FieldType.Text, store = true)

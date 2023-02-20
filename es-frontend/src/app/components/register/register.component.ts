@@ -1,5 +1,6 @@
 import { RegisterService } from './../../service/register.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit {
     }
   ]
   
-  constructor(private registerService: RegisterService) { }
+  constructor(private registerService: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -47,6 +48,8 @@ export class RegisterComponent implements OnInit {
       (data: any) => {
         this.result = data
         console.log(this.result)
+        this.router.navigate(['/workers'])
+
       }
     )
   }
