@@ -1,3 +1,4 @@
+import { RegisterService } from './../../service/register.service';
 import { SearchService } from './../../service/search.service';
 import { SearchComponent } from './../search/search.component';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancedSearchComponent implements OnInit {
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService, private registerService: RegisterService) { }
 
   ngOnInit(): void {
   }
@@ -30,7 +31,8 @@ export class AdvancedSearchComponent implements OnInit {
         "lastName": "",
         "education": "",
         "highlight": "",
-        "address": ""
+        "address": "",
+        "id": ""
       }
     ]
 
@@ -81,6 +83,33 @@ export class AdvancedSearchComponent implements OnInit {
       this.fields[index].phrase = false
 
     }
+  }
+
+  downloadCV(i){
+    let dto = {
+      "id": i,
+      "isCV": true
+    }
+
+    this.registerService.download(dto).subscribe(
+      (data: any) => {
+        console.log(this.result)
+      }
+    )
+  }
+
+  downloadCL(i){
+    let dto = {
+      "id": i,
+      "isCV": false
+    }
+
+    this.registerService.download(dto).subscribe(
+      (data: any) => {
+        console.log(this.result)
+        alert("Uspesno preuzet fajl!!")
+      }
+    )
   }
 
   submit() {

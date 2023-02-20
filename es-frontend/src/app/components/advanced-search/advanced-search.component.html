@@ -68,6 +68,9 @@
                             <h6 class="card-subtitle mb-2 text-muted">{{r.education}}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">{{r.address}}</h6>
                             <p class="card-text">{{r.highlight}}</p>
+                            <button class="btn btn-primary" (click)="downloadCV(r.id)" >Download CV</button>
+                            <button class="btn btn-primary" style="margin-left: 100px;" (click)="downloadCL(r.id)">Download cover letter</button>
+                          
                             <!-- <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a> -->
                           </div>
