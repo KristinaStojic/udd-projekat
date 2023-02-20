@@ -1,3 +1,4 @@
+import { StatisticComponent } from './components/statistic/statistic.component';
 import { LoginComponent } from './components/login/login.component';
 import { WorkersComponent } from './components/workers/workers.component';
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
@@ -38,6 +39,12 @@ const routes: Routes = [
     path: '',
     component: LoginComponent,
     pathMatch: 'full', 
+
+  },
+
+  {
+    path: 'statistic',
+    component: StatisticComponent,
 
   },
 

@@ -40,6 +40,13 @@
                                     <option value="VIII">VIII - Doktor nauka</option>
                                 </select>
                             </div>
+
+                            <div class="form-check" style="margin-left: 10px; margin-top: 5px;">
+                              <input class="form-check-input" type="checkbox" id="myCheckbox" (change)="selectPhrase(i, $event)">
+                              <label class="form-check-label" for="myCheckbox">
+                                Fraza
+                              </label>
+                            </div>
                               
                               <button *ngIf="i > 0" type="button" style="margin-left: 20px;" class="btn btn-danger btn-sm" (click)="removeField(i)">-</button>
                             </div>
@@ -59,6 +66,7 @@
                           <div class="card-body">
                             <h5 class="card-title">{{r.firstName}} {{r.lastName}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{r.education}}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">{{r.address}}</h6>
                             <p class="card-text">{{r.highlight}}</p>
                             <!-- <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a> -->

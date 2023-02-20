@@ -13,4 +13,5 @@ public class AdvancedSearchRequestDTO {
     private String criteria;
     private String op;
     private String content;
+    private Boolean phrase;
 }

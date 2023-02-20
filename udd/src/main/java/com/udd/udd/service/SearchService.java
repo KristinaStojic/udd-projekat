@@ -30,18 +30,6 @@ public class SearchService {
         return getSearchResponse(searchHits);
     }
 
-    public List<SearchResponseDTO> simpleSearchEducation(NativeSearchQuery searchQuery){
-        System.out.println(searchQuery.getQuery());
-        SearchHits<IndexUnit> searchHits = elasticsearchRestTemplate.search(searchQuery, IndexUnit.class, IndexCoordinates.of("applicant"));
-        return getSearchResponse(searchHits);
-    }
-
-    public List<SearchResponseDTO> simpleSearchCV(NativeSearchQuery searchQuery){
-        System.out.println(searchQuery.getQuery());
-        SearchHits<IndexUnit> searchHits = elasticsearchRestTemplate.search(searchQuery, IndexUnit.class, IndexCoordinates.of("applicant"));
-        return getSearchResponse(searchHits);
-    }
-
 
     private List<SearchResponseDTO> getSearchResponse(SearchHits<IndexUnit> searchHits) {
         List<SearchResponseDTO> searchResponses = new ArrayList<>();

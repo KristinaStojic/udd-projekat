@@ -11,6 +11,7 @@ import { GeoSearchComponent } from './components/geo-search/geo-search.component
 import { AdvancedSearchComponent } from './components/advanced-search/advanced-search.component';
 import { WorkersComponent } from './components/workers/workers.component';
 import { LoginComponent } from './components/login/login.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoginComponent } from './components/login/login.component';
     GeoSearchComponent,
     AdvancedSearchComponent,
     WorkersComponent,
-    LoginComponent
+    LoginComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,

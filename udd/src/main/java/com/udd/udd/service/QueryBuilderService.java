@@ -202,17 +202,17 @@ public class QueryBuilderService {
         for(AdvancedSearchRequestDTO req: dto){
 
             if(req.getOp().equals(Operator.AND.toString())) {
-                //if(req.isPhrase()){
+                if(!req.getPhrase()){
                     boolQuery.must(QueryBuilders.matchQuery(req.getCriteria(), req.getContent()));
-                //} else {
-                  //  boolQuery.must(QueryBuilders.matchQuery(formFieldRequest.getName(), formFieldRequest.getValue()));
-                //}
+                } else {
+                    boolQuery.must(QueryBuilders.matchPhraseQuery(req.getCriteria(), req.getContent()));
+                }
             } else {
-                //if(req.isPhrase()) {
+                if(!req.getPhrase()) {
                     boolQuery.should(QueryBuilders.matchQuery(req.getCriteria(), req.getContent()));
-                //} else {
-                  //  boolQuery.should(QueryBuilders.matchQuery(formFieldRequest.getName(), formFieldRequest.getValue()));
-               // }
+                } else {
+                    boolQuery.should(QueryBuilders.matchPhraseQuery(req.getCriteria(), req.getContent()));
+                }
             }
         }
 

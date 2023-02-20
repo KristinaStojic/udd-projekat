@@ -22,20 +22,22 @@ export class AdvancedSearchComponent implements OnInit {
       criteria: '',
       content: '',
       op : 'AND',
+      phrase: false
     }];
     result = [
       {
         "firstName": "",
         "lastName": "",
         "education": "",
-        "highlight": ""
+        "highlight": "",
+        "address": ""
       }
     ]
 
   addField() {
 
     this.fieldCount = this.fields.length + 1;
-    const newField = { criteria: '', content: '', op: 'AND' };
+    const newField = { criteria: '', content: '', op: 'AND', phrase: false };
     this.fields.push(newField);
 
     this.submit()
@@ -70,6 +72,15 @@ export class AdvancedSearchComponent implements OnInit {
   educationLevel($event, index){
     this.fields[index].content = $event.target.value
     console.log(this.fields[index])
+  }
+
+  selectPhrase(index, $event){
+    if($event.target.checked){
+      this.fields[index].phrase = true
+    }else{
+      this.fields[index].phrase = false
+
+    }
   }
 
   submit() {
