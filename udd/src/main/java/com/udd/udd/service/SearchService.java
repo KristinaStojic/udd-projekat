@@ -1,7 +1,9 @@
 package com.udd.udd.service;
 
 import com.udd.udd.dto.SearchResponseDTO;
+import com.udd.udd.model.Applicant;
 import com.udd.udd.model.IndexUnit;
+import com.udd.udd.repository.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -18,6 +20,9 @@ public class SearchService {
 
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     public List<SearchResponseDTO> simpleSearch(NativeSearchQuery searchQuery){
         System.out.println(searchQuery.getQuery());
@@ -48,6 +53,8 @@ public class SearchService {
             searchResponse.setFirstName(searchHit.getContent().getFirstName());
             searchResponse.setLastName(searchHit.getContent().getLastName());
             searchResponse.setEducation(searchHit.getContent().getEducation());
+            Applicant a = applicationRepository.findById(Long.valueOf(searchHit.getId())).orElseGet(null);
+            searchResponse.setAddress(a.getStreet() + ", " + a.getCity());
 
             if (searchHit.getHighlightFields().isEmpty()) {
                 searchResponse.setHighlight(searchHit.getContent().getCvContent().substring(0, 200) + "...");
@@ -60,6 +67,7 @@ public class SearchService {
 
                 }
             }
+
 
             searchResponses.add(searchResponse);
         }

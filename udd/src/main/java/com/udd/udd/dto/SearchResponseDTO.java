@@ -17,5 +17,6 @@ public class SearchResponseDTO {
     private String lastName;
     private String education;
     private String highlight;
+    private String address;
     //TODO: dodati text cv-ja
 }

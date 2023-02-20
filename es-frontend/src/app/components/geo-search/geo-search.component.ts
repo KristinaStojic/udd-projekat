@@ -18,7 +18,8 @@ export class GeoSearchComponent implements OnInit {
       "firstName": "",
       "lastName": "",
       "education": "",
-      "highlight": ""
+      "highlight": "",
+      "address": ""
     }
   ]
 
